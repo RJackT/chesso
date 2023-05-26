@@ -29,54 +29,47 @@ namespace Chesso
         /// </summary>
         private void InitializeComponent()
         {
-            label1=new Label();
-            button1=new Button();
-            button2=new Button();
+            label1 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
             // 
-            label1.AutoSize=true;
-            label1.Font=new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location=new Point(8, 9);
-            label1.Name="label1";
-            label1.Size=new Size(128, 41);
-            label1.TabIndex=1;
-            label1.Text="CHESSO";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(371, 223);
+            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 28);
+            label1.TabIndex = 1;
+            label1.Text = "CHESSO";
             // 
             // button1
             // 
-            button1.Location=new Point(16, 81);
-            button1.Name="button1";
-            button1.Size=new Size(176, 34);
-            button1.TabIndex=2;
-            button1.Text="Start as white";
-            button1.UseVisualStyleBackColor=true;
-            // 
-            // button2
-            // 
-            button2.Location=new Point(209, 81);
-            button2.Name="button2";
-            button2.Size=new Size(176, 34);
-            button2.TabIndex=3;
-            button2.Text="Start as black";
-            button2.UseVisualStyleBackColor=true;
-            button2.Click+=button2_Click;
+            button1.Location = new Point(345, 254);
+            button1.Margin = new Padding(2);
+            button1.Name = "button1";
+            button1.Size = new Size(136, 31);
+            button1.TabIndex = 2;
+            button1.Text = "Start";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
-            AutoScaleDimensions=new SizeF(10F, 25F);
-            AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(796, 792);
-            Controls.Add(button2);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(799, 799);
             Controls.Add(button1);
             Controls.Add(label1);
-            MaximizeBox=false;
-            MinimizeBox=false;
-            Name="Form1";
-            StartPosition=FormStartPosition.Manual;
-            Text="Form1";
-            Load+=Form1_Load;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            Margin = new Padding(2);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Form1";
+            StartPosition = FormStartPosition.Manual;
+            Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -84,6 +77,5 @@ namespace Chesso
         #endregion
         private Label label1;
         private Button button1;
-        private Button button2;
     }
 }
