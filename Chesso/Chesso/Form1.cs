@@ -561,7 +561,6 @@ namespace Chesso
                 Graphics g = CreateGraphics();
 
                 button1.Visible = false; // start as white button
-                button2.Visible = false; // Start as black button
                 label1.Visible = false;
                 if (bUpdate)
                 {
