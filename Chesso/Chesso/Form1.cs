@@ -89,7 +89,7 @@ namespace Chesso
         board_class.boxes active_piece;
         public static bool bStarted = false;
         public static bool bWhite = true;
-        public static bool bWhiteMove = true;
+        public static int sideToMove = 2;
 
         public static bool bBlack_checked = false;
         public static bool bWhite_checked = false;
@@ -966,13 +966,14 @@ namespace Chesso
             int y = (int)Math.Floor((float)pY / 100);
             if (active_piece != null)
             {
-                if ((board.box[x][y].pieceID == (int)pieces.none || board.box[x][y].colour() != active_piece.colour()))
+                if ((board.box[x][y].pieceID == (int)pieces.none || board.box[x][y].colour() != active_piece.colour()) && sideToMove == active_piece.colour())
                 {
                     if (board.box[x][y].marked == (int)box_mark.moveable || board.box[x][y].marked == (int)box_mark.capture)
                     {
                         board.box[x][y].pieceID = active_piece.pieceID;
                         active_piece.pieceID = (int)pieces.none;
                     }
+                    if (sideToMove == 1) sideToMove = 2; else sideToMove = 1;
 
                     active_piece = null;
                 }
