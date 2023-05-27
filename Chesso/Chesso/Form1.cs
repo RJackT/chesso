@@ -325,7 +325,18 @@ namespace Chesso
                             }
                             else
                                 board.box[x1][y1].marked = (int)box_mark.moveable;
-                        else break;
+
+
+                        if(board.box[x][y].colour() != board.box[x+1][y+1].colour() && board.box[x + 1][y + 1].pieceID != (int)pieces.none)
+                        {
+                            board.box[x + 1][y + 1].marked = (int)box_mark.capture;
+                            break;
+                        }
+                        if (board.box[x][y].colour() != board.box[x + 1][y - 1].colour() && board.box[x + 1][y - 1].pieceID != (int)pieces.none)
+                        {
+                            board.box[x + 1][y - 1].marked = (int)box_mark.capture;
+                            break;
+                        }
                     }
                     break;
                 case (int)pieces.knight_white:
@@ -634,10 +645,29 @@ namespace Chesso
                 case (int)pieces.pawn_black:
                     if (x > 0)
                     {
-                        if (board.box[x - 1][y].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y].colour())
-                            board.box[x - 1][y].marked = (int)box_mark.capture;
-                        else if ((board.box[x - 1][y].pieceID == 0 && board.box[x][y].colour() != board.box[x - 1][y].colour()))
-                            board.box[x - 1][y].marked = (int)box_mark.moveable;
+                        int x1 = x - 1; // För att lättare applicera till alla 
+                        int y1 = y;
+
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+
+
+                        if (board.box[x][y].colour() != board.box[x1][y + 1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
+                        {
+                            board.box[x1][y + 1].marked = (int)box_mark.capture;
+                            break;
+                        }
+                        if (board.box[x][y].colour() != board.box[x1][y - 1].colour() && board.box[x1][y - 1].pieceID != (int)pieces.none)
+                        {
+                            board.box[x1][y - 1].marked = (int)box_mark.capture;
+                            break;
+                        }
                     }
 
                     break;
@@ -970,10 +1000,11 @@ namespace Chesso
                 {
                     if (board.box[x][y].marked == (int)box_mark.moveable || board.box[x][y].marked == (int)box_mark.capture)
                     {
+                        if (sideToMove == 1) sideToMove = 2; else sideToMove = 1;
                         board.box[x][y].pieceID = active_piece.pieceID;
                         active_piece.pieceID = (int)pieces.none;
                     }
-                    if (sideToMove == 1) sideToMove = 2; else sideToMove = 1;
+                    
 
                     active_piece = null;
                 }
