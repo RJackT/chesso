@@ -312,30 +312,26 @@ namespace Chesso
             switch (board.box[x][y].pieceID)
             {
                 case (int)pieces.pawn_white:
-                    if(x < 7)
+                    if (x == 7)
+                    {
+                        board.box[x][y].pieceID = (int)pieces.queen_white;break;
+                    }
+                    if (x < 7)
                     {
                         int x1 = x + 1; // För att lättare applicera till alla 
                         int y1 = y;
-                        
-                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
-                            if (board.box[x1][y1].pieceID != (int)pieces.none)
-                            {
-                                board.box[x1][y1].marked = (int)box_mark.capture;
-                                break;
-                            }
-                            else
+
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour() && board.box[x1][y].pieceID == 0)
                                 board.box[x1][y1].marked = (int)box_mark.moveable;
 
 
-                        if(board.box[x][y].colour() != board.box[x+1][y+1].colour() && board.box[x + 1][y + 1].pieceID != (int)pieces.none)
+                        if(y < 7) if(board.box[x][y].colour() != board.box[x1][y+1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
                         {
-                            board.box[x + 1][y + 1].marked = (int)box_mark.capture;
-                            break;
+                            board.box[x1][y + 1].marked = (int)box_mark.capture;
                         }
-                        if (board.box[x][y].colour() != board.box[x + 1][y - 1].colour() && board.box[x + 1][y - 1].pieceID != (int)pieces.none)
+                        if(y > 0) if (board.box[x][y].colour() != board.box[x1][y - 1].colour() && board.box[x1][y - 1].pieceID != (int)pieces.none)
                         {
-                            board.box[x + 1][y - 1].marked = (int)box_mark.capture;
-                            break;
+                            board.box[x1][y - 1].marked = (int)box_mark.capture;
                         }
                     }
                     break;
@@ -643,31 +639,29 @@ namespace Chesso
                     }
                     break;
                 case (int)pieces.pawn_black:
+                    if (x == 0)
+                    {
+                        board.box[x][y].pieceID = (int)pieces.queen_black; break;
+                    }
                     if (x > 0)
                     {
                         int x1 = x - 1; // För att lättare applicera till alla 
                         int y1 = y;
 
-                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
-                            if (board.box[x1][y1].pieceID != (int)pieces.none)
-                            {
-                                board.box[x1][y1].marked = (int)box_mark.capture;
-                                break;
-                            }
-                            else
+
+                            if (board.box[x][y].colour() != board.box[x1][y1].colour() && board.box[x1][y].pieceID == 0)
                                 board.box[x1][y1].marked = (int)box_mark.moveable;
 
 
-                        if (board.box[x][y].colour() != board.box[x1][y + 1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
-                        {
-                            board.box[x1][y + 1].marked = (int)box_mark.capture;
-                            break;
-                        }
-                        if (board.box[x][y].colour() != board.box[x1][y - 1].colour() && board.box[x1][y - 1].pieceID != (int)pieces.none)
-                        {
-                            board.box[x1][y - 1].marked = (int)box_mark.capture;
-                            break;
-                        }
+                            if(y < 7) if (board.box[x][y].colour() != board.box[x1][y + 1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y + 1].marked = (int)box_mark.capture;
+                            }
+                           if(y > 0) if (board.box[x][y].colour() != board.box[x1][y - 1].colour() && board.box[x1][y - 1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y - 1].marked = (int)box_mark.capture;
+                            }
+                        
                     }
 
                     break;
