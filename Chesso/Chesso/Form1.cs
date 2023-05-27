@@ -316,13 +316,19 @@ namespace Chesso
                     {
                         board.box[x][y].pieceID = (int)pieces.queen_white;break;
                     }
-                    if (x < 7)
+                    if (x < 7) /// Vill inte lägga till an passant, det är ush.
                     {
                         int x1 = x + 1; // För att lättare applicera till alla 
                         int y1 = y;
 
                         if (board.box[x][y].colour() != board.box[x1][y1].colour() && board.box[x1][y].pieceID == 0)
-                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        {
+                            board.box[x1][y1].marked = (int)box_mark.moveable;
+                            if(board.box[x][y].colour() != board.box[x1+1][y1].colour() && board.box[x1+1][y].pieceID == 0 && x == 1)
+                            {
+                                board.box[x1+1][y1].marked = (int)box_mark.moveable;
+                            }
+                        }              
 
 
                         if(y < 7) if(board.box[x][y].colour() != board.box[x1][y+1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
@@ -649,9 +655,16 @@ namespace Chesso
                         int y1 = y;
 
 
-                            if (board.box[x][y].colour() != board.box[x1][y1].colour() && board.box[x1][y].pieceID == 0)
-                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour() && board.box[x1][y].pieceID == 0)
+                        {
+                            board.box[x1][y1].marked = (int)box_mark.moveable;
 
+                            if (board.box[x][y].colour() != board.box[x1 - 1][y1].colour() && board.box[x1 - 1][y].pieceID == 0 && x == 6)
+                            {
+                                board.box[x1 - 1][y1].marked = (int)box_mark.moveable;
+                            }
+                        }
+                        
 
                             if(y < 7) if (board.box[x][y].colour() != board.box[x1][y + 1].colour() && board.box[x1][y + 1].pieceID != (int)pieces.none)
                             {
