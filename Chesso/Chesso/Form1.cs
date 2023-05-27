@@ -312,66 +312,70 @@ namespace Chesso
             switch (board.box[x][y].pieceID)
             {
                 case (int)pieces.pawn_white:
-                    if (x < 7)
+                    if(x < 7)
                     {
-                        if ((board.box[x + 1][y].pieceID == 0 && board.box[x][y].colour() != board.box[x + 1][y].colour()))
-                            board.box[x + 1][y].marked = (int)box_mark.moveable;
+                        int x1 = x + 1; // För att lättare applicera till alla 
+                        int y1 = y;
+                        
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
                     }
-
-
                     break;
                 case (int)pieces.knight_white:
                     if (x < 6)
                     {
 
-                        if (y < 7) if (board.box[x + 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour())
-                            board.box[x + 2][y + 1].marked = (int)box_mark.capture;
-                        else if (!(board.box[x + 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour()))
-                            board.box[x + 2][y + 1].marked = (int)box_mark.moveable;
+                        if (y < 7) if (board.box[x][y].colour() != board.box[x + 2][y + 1].colour() && board.box[x + 2][y + 1].pieceID != 0) board.box[x + 2][y + 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x + 2][y + 1].colour())
+                                board.box[x + 2][y + 1].marked = (int)box_mark.moveable;
 
-                        if (y > 0) if (board.box[x + 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour()) board.box[x + 2][y - 1].marked = (int)box_mark.capture;
-                        else if (!(board.box[x + 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y - 1].colour()))
-                            board.box[x + 2][y - 1].marked = (int)box_mark.moveable;
+                        if (y > 0) if (board.box[x][y].colour() != board.box[x + 2][y - 1].colour() && board.box[x + 2][y - 1].pieceID != 0) board.box[x + 2][y - 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x + 2][y - 1].colour())
+                                board.box[x + 2][y - 1].marked = (int)box_mark.moveable;
 
                     }
                     if (x >= 2)
                     {
 
-                        if (y < 7) if (board.box[x - 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y + 1].colour())
-                            board.box[x - 2][y + 1].marked = (int)box_mark.capture;
-                        else
-                        if (!(board.box[x - 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y + 1].colour()))
-                            board.box[x - 2][y + 1].marked = (int)box_mark.moveable;
+                        if (y < 7) if (board.box[x][y].colour() != board.box[x - 2][y + 1].colour() && board.box[x - 2][y + 1].pieceID != 0) board.box[x - 2][y + 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 2][y + 1].colour())
+                                board.box[x - 2][y + 1].marked = (int)box_mark.moveable;
 
-                        if (y > 0) if (board.box[x - 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y - 1].colour())
-                            board.box[x - 2][y - 1].marked = (int)box_mark.capture;
-                        else
-                        if (!(board.box[x - 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y - 1].colour()))
-                            board.box[x - 2][y - 1].marked = (int)box_mark.moveable;
+                        if (y > 0) if (board.box[x][y].colour() != board.box[x - 2][y - 1].colour() && board.box[x - 2][y - 1].pieceID != 0) board.box[x - 2][y - 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 2][y - 1].colour())
+                                board.box[x - 2][y - 1].marked = (int)box_mark.moveable;
                     }
                     if (x < 6)
                     {
-                        if (y <= 5) if (board.box[x + 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y + 2].colour()) board.box[x + 1][y + 2].marked = (int)box_mark.capture;
+                        if (y <= 5) if (board.box[x][y].colour() != board.box[x + 1][y + 2].colour() && board.box[x + 1][y + 2].pieceID != 0)
+                                board.box[x + 1][y + 2].marked = (int)box_mark.capture;
                             else
-                                if (!(board.box[x + 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y + 2].colour()))
+                                if ((board.box[x][y].colour() != board.box[x + 1][y + 2].colour()))
                                 board.box[x + 1][y + 2].marked = (int)box_mark.moveable;
 
-                        if (y >= 2) if (board.box[x + 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y - 2].colour()) board.box[x + 1][y - 2].marked = (int)box_mark.capture;
+                        if (y >= 2) if (board.box[x][y].colour() != board.box[x + 1][y - 2].colour() && board.box[x + 1][y - 2].pieceID != 0)
+                                board.box[x + 1][y - 2].marked = (int)box_mark.capture;
                             else
-                                if (!(board.box[x + 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y - 2].colour()))
+                                if ((board.box[x][y].colour() != board.box[x + 1][y - 2].colour()))
                                 board.box[x + 1][y - 2].marked = (int)box_mark.moveable;
                     }
 
-                    if (x >= 1)
+
+                    if (x >= 2)
                     {
-                        if (y < 6) if (board.box[x - 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y + 2].colour()) board.box[x - 1][y + 2].marked = (int)box_mark.capture;
-                            else
-                                if (!(board.box[x - 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y + 2].colour()))
+                        if (y < 6) if (board.box[x][y].colour() != board.box[x - 1][y + 2].colour() && board.box[x - 1][y + 2].pieceID != 0) board.box[x - 1][y + 2].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 1][y + 2].colour())
                                 board.box[x - 1][y + 2].marked = (int)box_mark.moveable;
 
-                        if (y >= 2) if (board.box[x - 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y - 2].colour()) board.box[x - 1][y - 2].marked = (int)box_mark.capture;
-                            else
-                                if (!(board.box[x - 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y - 2].colour()))
+                        if (y >= 2) if (board.box[x][y].colour() != board.box[x - 1][y - 2].colour() && board.box[x - 1][y - 2].pieceID != 0) board.box[x - 1][y - 2].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 1][y - 2].colour())
                                 board.box[x - 1][y - 2].marked = (int)box_mark.moveable;
                     }
                     break;
@@ -435,23 +439,122 @@ namespace Chesso
                     }
                     break;
                 case (int)pieces.rook_white:
-                    for (int i = 1; x - i >= 0; i++) if (board.box[x - i][y].pieceID != 0 && board.box[x][y].colour() != board.box[x - i][y].colour()) board.box[x - i][y].marked = (int)box_mark.capture;
-                        else if (board.box[x - i][y].pieceID == 0) board.box[x - i][y].marked = (int)box_mark.moveable; else break;
+                    for (int i = 1; x + i <= 7; i++)
+                    {
+                        int x1 = x + i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; x - i >= 0; i++)
+                    {
+                        int x1 = x - i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y + i <= 7; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y + i;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y - i >= 0; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y - i;
 
-                    for (int i = 1; x + i <= 7; i++) if (board.box[x + i][y].pieceID != 0 && board.box[x][y].colour() != board.box[x + i][y].colour()) board.box[x + i][y].marked = (int)box_mark.capture;
-                        else if (board.box[x + i][y].pieceID == 0) board.box[x + i][y].marked = (int)box_mark.moveable; else break;
-
-                    for (int i = 1; x - i >= 0; i++) if (board.box[x][y - i].pieceID != 0 && board.box[x][y].colour() != board.box[x][y-i].colour()) board.box[x][y-i].marked = (int)box_mark.capture;
-                        else if (board.box[x][y-i].pieceID == 0) board.box[x][y-i].marked = (int)box_mark.moveable; else break;
-
-                    for (int i = 1; y + i <= 7; i++) if (board.box[x][y + i].pieceID != 0 && board.box[x][y].colour() != board.box[x][y+i].colour()) board.box[x][y+i].marked = (int)box_mark.capture;
-                        else if (board.box[x][y+i].pieceID == 0) board.box[x][y+i].marked = (int)box_mark.moveable; else break;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
                     break;
                 case (int)pieces.queen_white:
-                    for (int i = 1; x + i <= 7 && y + i <= 7; i++) if ((board.box[x + i][y + i].pieceID != 0 && board.box[x][y].colour() == board.box[x + i][y + i].colour())) board.box[x + i][y + i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 1; x + i <= 7 && y - i >= 0; i++) if (!(board.box[x + i][y - i].pieceID != 0 && board.box[x][y].colour() == board.box[x + i][y - i].colour())) board.box[x + i][y - i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 1; x - i >= 0 && y + i <= 7; i++) if (!(board.box[x - i][y + i].pieceID != 0 && board.box[x][y].colour() == board.box[x - i][y + i].colour())) board.box[x - i][y + i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 1; x - i >= 0 && y - i >= 0; i++) if (!(board.box[x - i][y - i].pieceID != 0 && board.box[x][y].colour() == board.box[x - i][y - i].colour())) board.box[x - i][y - i].marked = (int)box_mark.moveable; else break;
+                    for (int i = 1; x + i <= 7; i++)
+                    {
+                        int x1 = x + i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; x - i >= 0; i++)
+                    {
+                        int x1 = x - i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y + i <= 7; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y + i;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y - i >= 0; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y - i;
+
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
                     for (int i = 1; x + i <= 7 && y + i <= 7; i++)
                     {
                         int x1 = x + i; // För att lättare applicera till alla 
@@ -542,54 +645,50 @@ namespace Chesso
                     if (x < 6)
                     {
 
-                        if (y < 7) if (board.box[x + 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour())
-                                board.box[x + 2][y + 1].marked = (int)box_mark.capture;
-                            else if (!(board.box[x + 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour()))
+                        if (y < 7) if (board.box[x][y].colour() != board.box[x + 2][y + 1].colour() && board.box[x + 2][y + 1].pieceID != 0) board.box[x + 2][y + 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x + 2][y + 1].colour())
                                 board.box[x + 2][y + 1].marked = (int)box_mark.moveable;
 
-                        if (y > 0) if (board.box[x + 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y + 1].colour()) board.box[x + 2][y - 1].marked = (int)box_mark.capture;
-                            else if (!(board.box[x + 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x + 2][y - 1].colour()))
+                        if (y > 0) if (board.box[x][y].colour() != board.box[x + 2][y - 1].colour() && board.box[x + 2][y - 1].pieceID != 0) board.box[x + 2][y - 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x + 2][y - 1].colour())
                                 board.box[x + 2][y - 1].marked = (int)box_mark.moveable;
 
                     }
                     if (x >= 2)
                     {
 
-                        if (y < 7) if (board.box[x - 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y + 1].colour())
-                                board.box[x - 2][y + 1].marked = (int)box_mark.capture;
-                            else
-                        if (!(board.box[x - 2][y + 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y + 1].colour()))
+                        if (y < 7) if (board.box[x][y].colour() != board.box[x - 2][y + 1].colour() && board.box[x - 2][y + 1].pieceID != 0) board.box[x - 2][y + 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 2][y + 1].colour())
                                 board.box[x - 2][y + 1].marked = (int)box_mark.moveable;
 
-                        if (y > 0) if (board.box[x - 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y - 1].colour())
-                                board.box[x - 2][y - 1].marked = (int)box_mark.capture;
-                            else
-                        if (!(board.box[x - 2][y - 1].pieceID != 0 && board.box[x][y].colour() != board.box[x - 2][y - 1].colour()))
+                        if (y > 0) if (board.box[x][y].colour() != board.box[x - 2][y - 1].colour() && board.box[x - 2][y - 1].pieceID != 0) board.box[x - 2][y - 1].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 2][y - 1].colour())
                                 board.box[x - 2][y - 1].marked = (int)box_mark.moveable;
                     }
                     if (x < 6)
                     {
-                        if (y <= 5) if (board.box[x + 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y + 2].colour()) board.box[x + 1][y + 2].marked = (int)box_mark.capture;
+                        if (y <= 5) if (board.box[x][y].colour() != board.box[x + 1][y + 2].colour() && board.box[x + 1][y + 2].pieceID != 0)
+                                board.box[x + 1][y + 2].marked = (int)box_mark.capture;
                             else
-                                if (!(board.box[x + 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y + 2].colour()))
+                                if ((board.box[x][y].colour() != board.box[x + 1][y + 2].colour()))
                                 board.box[x + 1][y + 2].marked = (int)box_mark.moveable;
 
-                        if (y >= 2) if (board.box[x + 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y - 2].colour()) board.box[x + 1][y - 2].marked = (int)box_mark.capture;
+                        if (y >= 2) if (board.box[x][y].colour() != board.box[x + 1][y - 2].colour() && board.box[x + 1][y - 2].pieceID != 0)
+                                board.box[x + 1][y - 2].marked = (int)box_mark.capture;
                             else
-                                if (!(board.box[x + 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x + 1][y - 2].colour()))
+                                if ((board.box[x][y].colour() != board.box[x + 1][y - 2].colour()))
                                 board.box[x + 1][y - 2].marked = (int)box_mark.moveable;
                     }
 
-                    if (x >= 1)
+
+                    if (x >= 2)
                     {
-                        if (y < 6) if (board.box[x - 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y + 2].colour()) board.box[x - 1][y + 2].marked = (int)box_mark.capture;
-                            else
-                                if (!(board.box[x - 1][y + 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y + 2].colour()))
+                        if (y < 6) if (board.box[x][y].colour() != board.box[x - 1][y + 2].colour() && board.box[x - 1][y + 2].pieceID != 0) board.box[x - 1][y + 2].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 1][y + 2].colour())
                                 board.box[x - 1][y + 2].marked = (int)box_mark.moveable;
 
-                        if (y >= 2) if (board.box[x - 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y - 2].colour()) board.box[x - 1][y - 2].marked = (int)box_mark.capture;
-                            else
-                                if (!(board.box[x - 1][y - 2].pieceID != 0 && board.box[x][y].colour() != board.box[x - 1][y - 2].colour()))
+                        if (y >= 2) if (board.box[x][y].colour() != board.box[x - 1][y - 2].colour() && board.box[x - 1][y - 2].pieceID != 0) board.box[x - 1][y - 2].marked = (int)box_mark.capture;
+                            else if (board.box[x][y].colour() != board.box[x - 1][y - 2].colour())
                                 board.box[x - 1][y - 2].marked = (int)box_mark.moveable;
                     }
                     break;
@@ -651,32 +750,122 @@ namespace Chesso
                     }
                     break;
                 case (int)pieces.rook_black:
-                    for (int i = 0; x - i >= 0; i++) if (board.box[x - i][y].pieceID != 0 && board.box[x][y].colour() != board.box[x - i][y].colour()) board.box[x - i][y].marked = (int)box_mark.capture; 
-                        else
-                            if (board.box[x - i][y].pieceID == 0 && board.box[x][y].colour() != board.box[x - i][y].colour()) { board.box[x - i][y].marked = (int)box_mark.moveable; } 
-                        else 
-                            break;
-                    for (int i = 0; x + i <= 7; i++) if (board.box[x + i][y].pieceID != 0 && board.box[x][y].colour() != board.box[x + i][y].colour()) board.box[x + i][y].marked = (int)box_mark.capture;
-                        else
-                            if (board.box[x + i][y].pieceID == 0 && board.box[x][y].colour() != board.box[x + i][y].colour()) { board.box[x + i][y].marked = (int)box_mark.moveable; }
-                        else
-                            break;
-                    for (int i = 0; y + i <= 7; i++) if (board.box[x][y+i].pieceID != 0 && board.box[x][y].colour() != board.box[x][y + i].colour()) board.box[x][y + i].marked = (int)box_mark.capture;
-                        else
-                            if (board.box[x][y + i].pieceID == 0 && board.box[x][y + i].colour() != board.box[x][y + i].colour()) { board.box[x][y + i].marked = (int)box_mark.moveable; }
-                        else
-                            break;
-                    for (int i = 0; y - i >= 0; i++) if (board.box[x][y - i].pieceID != 0 && board.box[x][y].colour() != board.box[x][y - i].colour()) board.box[x][y - i].marked = (int)box_mark.capture;
-                        else
-                                  if (board.box[x][y - i].pieceID == 0 && board.box[x][y - i].colour() != board.box[x][y - i].colour()) { board.box[x][y - i].marked = (int)box_mark.moveable; }
-                        else
-                            break;
+                    for (int i = 1; x + i <= 7; i++)
+                    {
+                        int x1 = x + i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; x - i >= 0; i++)
+                    {
+                        int x1 = x - i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y + i <= 7; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y + i;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y - i >= 0; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y - i;
+
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
                     break;
                 case (int)pieces.queen_black:
-                    for (int i = 0; x + i < 7 && y + i <= 7; i++) if (!(board.box[x + i][y + i].pieceID != 0 && board.box[x][y].colour() != board.box[x + i][y + i].colour())) board.box[x + i][y + i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 0; x + i < 7 && y - i >= 0; i++) if (!(board.box[x + i][y - i].pieceID != 0 && board.box[x][y].colour() != board.box[x + i][y - i].colour())) board.box[x + i][y - i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 0; x - i > 0 && y + i <= 7; i++) if (!(board.box[x - i][y + i].pieceID != 0 && board.box[x][y].colour() != board.box[x - i][y + i].colour())) board.box[x - i][y + i].marked = (int)box_mark.moveable; else break;
-                    for (int i = 0; x - i > 0 && y - i >= 0; i++) if (!(board.box[x - i][y - i].pieceID != 0 && board.box[x][y].colour() != board.box[x - i][y - i].colour())) board.box[x - i][y - i].marked = (int)box_mark.moveable; else break;
+                    for (int i = 1; x + i <= 7; i++)
+                    {
+                        int x1 = x + i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; x - i >= 0; i++)
+                    {
+                        int x1 = x - i; // För att lättare applicera till alla 
+                        int y1 = y;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y + i <= 7; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y + i;
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
+                    for (int i = 1; y - i >= 0; i++)
+                    {
+                        int x1 = x; // För att lättare applicera till alla 
+                        int y1 = y - i;
+
+                        if (board.box[x][y].colour() != board.box[x1][y1].colour())
+                            if (board.box[x1][y1].pieceID != (int)pieces.none)
+                            {
+                                board.box[x1][y1].marked = (int)box_mark.capture;
+                                break;
+                            }
+                            else
+                                board.box[x1][y1].marked = (int)box_mark.moveable;
+                        else break;
+                    }
                     for (int i = 1; x + i <= 7 && y + i <= 7; i++)
                     {
                         int x1 = x + i; // För att lättare applicera till alla 
